@@ -34,7 +34,7 @@ class PolygonManNode : polygon::PolygonMan{
 public:
 
     PolygonManNode(ros::NodeHandle & n) 
-    : polygon::PolygonMan(){
+    : polygon::PolygonMan(n){
 
     }
 
@@ -54,6 +54,7 @@ int main(int argc, char **argv) {
     PolygonManNode polygon_node(n);
 
     std::cout << "exo working " << std::endl;
+    polygon_node;
     ros::spin();
 
 

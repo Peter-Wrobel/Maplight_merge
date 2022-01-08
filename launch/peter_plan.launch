@@ -4,7 +4,11 @@
   <!--Simulation of navigation-->
   <!-- <node name="navigation_example" pkg="osm_planner" type="navigation_example" ns="osm_planner" output="screen"/> -->
   <node name="polygon_pandemonium" pkg="polygon" type="polygon" ns="polygon" output="screen">
-    <!-- <param name="background_pic_path" value = "$(find osm_planner)/osm_example/image_match/background.jpeg"/> -->
+      <param name="lat_zero"      value = "42.294068"  type = "double" />
+      <param name="lon_zero"      value = "-83.709846" type = "double" />
+      <param name="lat_true"       value = "42.294068"  type = "double" />
+      <param name="lon_true"       value = "-83.709846" type = "double" />
+
   </node>
 
 
