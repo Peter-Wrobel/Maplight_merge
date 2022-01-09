@@ -41,7 +41,7 @@
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/features/normal_3d.h>
 #include <pcl/filters/normal_space.h>
-#include <velodyne_pointcloud/pointcloudXYZIRT.h>
+//#include <velodyne_pointcloud/pointcloudXYZIRT.h>
 
 #include <deque>
 #include <stack>
