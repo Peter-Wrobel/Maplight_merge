@@ -28,36 +28,94 @@
  * WEBSITE: https://www.BrucebotStudio.com/
  */
 
-#include <polygon_man.h>
+#pragma once 
 
-class PolygonManNode : polygon::PolygonMan{
-public:
+#include <cv_bridge/cv_bridge.h>
+#include <opencv2/opencv.hpp>
 
-    PolygonManNode(ros::NodeHandle & n) 
-    : polygon::PolygonMan(n){
+#include <pcl/PCLPointCloud2.h>
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
+#include <pcl/common/distances.h>
+#include <pcl/impl/point_types.hpp>
+#include <pcl_conversions/pcl_conversions.h>
+#include <pcl/features/normal_3d.h>
+#include <pcl/filters/normal_space.h>
+#include <velodyne_pointcloud/pointcloudXYZIRT.h>
 
-    }
-
-
-private:
-
-
-
-
-};
-
-int main(int argc, char **argv) {
-
-	ros::init(argc, argv, "osm_pic");
-    ros::NodeHandle n;
-
-    PolygonManNode polygon_node(n);
-
-    std::cout << "exo working " << std::endl;
-    polygon_node;
-    ros::spin();
+#include <deque>
+#include <stack>
+#include <tuple>
+#include <cmath>
+//reconfigure
+#include <dynamic_reconfigure/server.h>
+#include <osm_localization/osm_localizationConfig.h>
 
 
+//ros and tf
+#include <ros/ros.h>
+#include <tf/transform_datatypes.h>
 
-return 0;
+//Eigen
+#include <Eigen/Dense>
+
+//messages
+#include <visualization_msgs/Marker.h>
+#include <visualization_msgs/MarkerArray.h>
+#include <nav_msgs/Path.h>
+#include <sensor_msgs/NavSatFix.h>
+#include <sensor_msgs/PointCloud2.h>
+
+//my own
+#include <osm_planner/osmWays.h>
+
+
+#define METERS_PER_LAT 111078.9281974937 
+#define METERS_PER_LON  82472.616449
+
+namespace maplite {
+
+    //! OSM Localization class
+/*!
+ * The localization on the osm map.
+ * It's create a union of geographic (GPS) pose, cartesian (XY) pose and nearest point on the map
+*/
+    typedef struct coord{
+       double y;
+       double x;
+
+    } COORD;
+    
+
+    typedef std::vector<COORD> OSM_WAY;
+
+
+
+    class MapliteClass {
+
+    public:
+
+        MapliteClass(ros::NodeHandle& n );
+
+        void localize(void);
+
+        //from [start, end]
+        OSM_WAY applyDouglasPeuker(uint way_id, double epsilon, uint start, uint end);
+
+        double perpendicularDist(COORD p, COORD start, COORD end);
+        
+        void printWays(std::vector<OSM_WAY> & vec);
+
+    private:
+
+        double lat_zero_;
+        double lon_zero_;
+
+        ros::ServiceClient osm_node_client_;
+
+        std::vector<OSM_WAY> ways_;
+        std::vector<OSM_WAY> filtered_ways_;
+
+    };
 }
+

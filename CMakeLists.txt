@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(polygon)
+project(maplite)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -106,12 +106,12 @@ include_directories(/usr/local/include/)
 ####################################################################################
 #### PIPELINE TESTING 
 ####################################################################################
-add_executable(polygon 
-    src/polygon_node.cpp
-    src/polygon_man.cpp
+add_executable(maplite 
+    src/maplite_node.cpp
+    src/maplite.cpp
 )
-add_dependencies(polygon ${${PROJECT_NAME}_EXPORTED_TARGETS}
+add_dependencies(maplite ${${PROJECT_NAME}_EXPORTED_TARGETS}
     ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_gencfg)
-target_link_libraries(polygon ${catkin_LIBRARIES} ${PCL_LIBRARIES}
+target_link_libraries(maplite ${catkin_LIBRARIES} ${PCL_LIBRARIES}
 )
 ####################################################################################

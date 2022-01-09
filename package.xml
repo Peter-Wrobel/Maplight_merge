@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>polygon</name>
+  <name>maplite</name>
   <version>0.0.0</version>
   <description>Use CLF with RRT* to walk in the wavefield</description>
 

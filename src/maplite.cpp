@@ -1,17 +1,17 @@
-#include <polygon_man.h>
+#include <maplite.h>
 
 
-namespace polygon{
+namespace maplite{
 
 
-    PolygonMan::PolygonMan(ros::NodeHandle& n){
+    MapliteClass::MapliteClass(ros::NodeHandle& n){
 
         //-1. get parameters
-        if(!ros::param::get("/polygon/polygon_pandemonium/lon_zero", lon_zero_)){
-            ROS_ERROR("[Polygon] no initial guess lon");
+        if(!ros::param::get("/maplite/maplite_pandemonium/lon_zero", lon_zero_)){
+            ROS_ERROR("[maplite] no initial guess lon");
         }
-        if(!ros::param::get("/polygon/polygon_pandemonium/lat_zero", lat_zero_)){
-            ROS_ERROR("[Polygon] no initial guess lat");
+        if(!ros::param::get("/maplite/maplite_pandemonium/lat_zero", lat_zero_)){
+            ROS_ERROR("[maplite] no initial guess lat");
         }
 
 
@@ -52,7 +52,7 @@ namespace polygon{
         this->localize();
     }
 
-    void PolygonMan::printWays(std::vector<OSM_WAY> & vec){
+    void MapliteClass::printWays(std::vector<OSM_WAY> & vec){
 
         std::cout << "Way count : " << vec.size() << std::endl;
         int i = 0;
@@ -73,7 +73,7 @@ namespace polygon{
     }
 
 
-    void PolygonMan::localize(void){
+    void MapliteClass::localize(void){
 
         printWays(ways_);
         double epsilon = 5;
@@ -87,7 +87,7 @@ namespace polygon{
         printWays(filtered_ways_);
     }
 
-    OSM_WAY PolygonMan::applyDouglasPeuker(uint way_id, double epsilon, uint start, uint end){
+    OSM_WAY MapliteClass::applyDouglasPeuker(uint way_id, double epsilon, uint start, uint end){
 
         double dmax = 0;
         uint index = 0;
@@ -125,7 +125,7 @@ namespace polygon{
         return ans;
     }
 
-    double PolygonMan::perpendicularDist(COORD p, COORD start, COORD end){
+    double MapliteClass::perpendicularDist(COORD p, COORD start, COORD end){
 
         double m = ( end.y - start.y)/ (end.x - start.x);
         double b = end.y - m*start.x;
